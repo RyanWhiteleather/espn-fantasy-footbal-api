@@ -9,7 +9,7 @@
         public bool IsActive { get; set; }
         public bool IsExpired { get; set; }
         public bool IsFull { get; set; }
-        public bool IsPlayoffMatchupEdited { get; set; }
+        public bool isPlayoffMatchupEdited { get; set; }
         public int LatestScoringPeriod { get; set; }
         public int[] PreviousSeasons { get; set; }
         public long StandingsUpdateDate { get; set; }

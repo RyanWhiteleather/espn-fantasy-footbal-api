@@ -2,30 +2,22 @@ using EspnFantasyFootballApi.Domain.Model;
 using EspnFantasyFootballApi.Domain.Provider;
 using System.Net;
 
-namespace EspnFantasyFootballApi.Domain.Service;
-
-public class EspnFantasyFootballApiService
+namespace EspnFantasyFootballApi.Domain.Service
 {
-    private readonly HttpClient _httpClient;
-    private readonly UrlConfigurationProvider _urlConfigurationProvider;
-    private readonly string _swid;
-    private readonly string _espnS2;
-    
-    public EspnFantasyFootballApiService(string SWID, string espnS2)
+    public class EspnFantasyFootballApiService(
+        HttpProvider httpProvider,
+        UrlConfigurationProvider urlConfigurationProvider,
+        int leagueId)
     {
-        //CookieContainer cookies = new CookieContainer();
-        //cookies.Add(new Cookie { Name = "SWID", Value = SWID});
-        //cookies.Add(new Cookie { Name = "espn_s2", Value = espnS2 });
-        _swid = SWID;
-        _espnS2 = espnS2;   
+        public Task<League> GetLeagueAsync(int seasonId)
+        {
+            string url = UrlConfigurationProvider.GetLeagueEndpointUrl(leagueId, seasonId);
+            return httpProvider.GetAsync<League>(url);
+        }
 
-        _httpClient = new HttpClient();
+        public Task<BoxScore[]> GetBoxScoreForWeek(int seasonId, int matchupPeriodId, int scoringPeriodId)
+        {
+            throw new NotImplementedException();
+        }
     }
-
-    public async Task<League> GetLeagueAsync(int leagueId, int year)
-    {
-        string url = _urlConfigurationProvider.GetLeagueEndpointUrl(leagueId, year);
-        _httpClient.
-    }
-
 }

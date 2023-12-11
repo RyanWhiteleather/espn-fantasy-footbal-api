@@ -1,4 +1,6 @@
-﻿namespace EspnFantasyFootballApi.Domain.Provider
+﻿using EspnFantasyFootballApi.Domain.Model;
+
+namespace EspnFantasyFootballApi.Domain.Provider
 {
     /// <summary>
     /// URL provides for ESPN's Fantasy Football API
@@ -9,13 +11,16 @@
         /// URL for getting the base league settings.
         /// </summary>
         /// <param name="leagueId"></param>
-        /// <param name="year"></param>
+        /// <param name="seasonId"></param>
         /// <returns></returns>
-        public string GetLeagueEndpointUrl(int leagueId, int year)
+        public static string GetLeagueEndpointUrl(int leagueId, int seasonId)
         {
-            const string leagueEndpointFormat = "{0}leagueSettings?leagueId={1}&seasonId={2}";
-            return string.Format(leagueEndpointFormat, GetFantasyUrlBase(), leagueId, year);
+            return new Route(
+                $"{GetFantasyUrlBase()}{seasonId}/segments/0/leagues/{leagueId}", 
+                "?view=mSettings")
+                .ToString();
         }
+        
 
         /// <summary>
         /// Base URL for the V3 ESPN api
